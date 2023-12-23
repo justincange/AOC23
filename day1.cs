@@ -21,15 +21,13 @@ internal class day1
             dict.Add("nine", '9');
             foreach (string line in lines)
             {
-                //every line has two ints. grab the first one, the second one, append them then add that int to m
-                //ainsum
+            
                 StringBuilder numstr = new StringBuilder();
                 List<char> charnums = new List<char>();
                 StringBuilder tempnum = new StringBuilder();
                 for (int i = 0; i < line.Length; i++) 
                 {
                     char c = line[i];
-                    //Console.WriteLine($"checking {c}");
                     if (Char.IsNumber(c))
                     {
                         if (tempnum.Length == 0)
@@ -42,11 +40,8 @@ internal class day1
 
                         }
                         continue;
-                        //reset tempnum
-                    //    Console.WriteLine($"{c} is a number");
                     }
                     if (dict.ContainsKey(tempnum.ToString()) ){
-                        //Console.WriteLine($"{tempnum.ToString()} we got!");
                         tempnum.Clear();
                         i = i - 2;
 
@@ -55,10 +50,8 @@ internal class day1
                     if (tempnum.Length < 5)
                     {
                         tempnum.Append(c);
-                        //Console.WriteLine(tempnum.ToString());
                         if (dict.ContainsKey(tempnum.ToString()))
                         {
-                           // Console.WriteLine($"{tempnum.ToString()} we got!");
                             charnums.Add(dict[tempnum.ToString()]);
                             tempnum.Clear();
                             i = i - 1;
@@ -72,10 +65,8 @@ internal class day1
                     
                    if (i == line.Length-1 && tempnum.Length >1)
                     {
-                        //Console.WriteLine($"{tempnum.ToString()}Happens");
                         i = i - tempnum.Length +1;
                         tempnum.Clear();
-                        //Console.WriteLine($"now at {line[i]}");
                         
                     }
                     
@@ -84,7 +75,6 @@ internal class day1
                 char last = charnums[charnums.Count - 1];
                 numstr.Append(first);
                 numstr.Append(last);
-              //  Console.WriteLine(numstr);
                 mainsum += Int32.Parse(numstr.ToString());
 
             }
