@@ -8,18 +8,17 @@ internal class day2
         {
             UTF8Encoding temp = new UTF8Encoding(true);
             var lines = File.ReadLines("C:\\Users\\justi\\source\\repos\\ConsoleApp1\\day2.txt");
-            HashSet<int> idList = new HashSet<int>();
-            int badRed = 12;
-            int badGreen = 13;
-            int badBlue = 14;
+            List<int> powerList = new List<int>();           
             foreach (string line in lines)
             {
                 string[] firstList = line.Split(":");
                 string[] secondSplit = firstList[0].Split(" ");
                 int ID = Int32.Parse(secondSplit[1]);
-                bool possible = true;
                 string[] games = firstList[1].Split(";");
-               // Console.WriteLine(string.Join(" and then", games));
+                int maxRed = 0;
+                int maxBlue = 0;
+                int maxGreen = 0;
+                // Console.WriteLine(string.Join(" and then", games));
                 foreach (string gam in games)
                 {
                     string game = gam.Trim();
@@ -38,16 +37,14 @@ internal class day2
                             {
                          
                                 case 'r':
-                                    if (num > badRed)
-                                        possible = false;
+                                    maxRed = Math.Max(num, maxRed);
+
                                     break;
                                 case 'g':
-                                    if (num > badGreen)
-                                        possible = false;
+                                    maxGreen = Math.Max(num, maxGreen);
                                     break;
                                 case 'b':
-                                    if (num > badBlue)
-                                        possible = false;
+                                    maxBlue = Math.Max(num, maxBlue);
                                     break;
 
                             }
@@ -55,17 +52,16 @@ internal class day2
 
 
                     }
-                  
+                   
                 }
+               // Console.WriteLine($"{maxRed}red {maxBlue} blue {maxGreen} green");
+                int power = maxRed * maxBlue * maxGreen;
+                powerList.Add(power);
 
 
-                if (possible)
-                {
-                    idList.Add(ID);
-                }
             }
             int mainsum = 0;
-            foreach (int value in idList)
+            foreach (int value in powerList)
             {
                 //Console.WriteLine(value);
                 mainsum += value;
